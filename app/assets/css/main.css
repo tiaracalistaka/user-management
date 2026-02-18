@@ -16,3 +16,24 @@
   --color-green-900: #0A5331;
   --color-green-950: #052E16;
 }
+
+:root {
+  --color-primary-50: #eef6ff;
+  --color-primary-100: #d9eaff;
+  --color-primary-200: #bcd9ff;
+  --color-primary-300: #8ec0ff;
+  --color-primary-400: #5ea2ff;
+  --color-primary-500: #2f80ed; /* biru utama */
+  --color-primary-600: #1c6ed5;
+  --color-primary-700: #155bb3;
+  --color-primary-800: #124a91;
+  --color-primary-900: #0f3d78;
+}
+
+/* Accent kuning */
+.accent-gold {
+  color: #f2c94c;
+}
+.bg-gold {
+  background-color: #f2c94c;
+}

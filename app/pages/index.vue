@@ -1,76 +1,120 @@
 <template>
-  <div>
-    <UPageHero
-      title="Nuxt Starter Template"
-      description="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours."
-      :links="[{
-        label: 'Get started',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        target: '_blank',
-        trailingIcon: 'i-lucide-arrow-right',
-        size: 'xl'
-      }, {
-        label: 'Use this template',
-        to: 'https://github.com/nuxt-ui-templates/starter',
-        target: '_blank',
-        icon: 'i-simple-icons-github',
-        size: 'xl',
-        color: 'neutral',
-        variant: 'subtle'
-      }]"
-    />
+  <div class="min-h-screen flex flex-col lg:flex-row overflow-hidden">
 
-    <UPageSection
-      id="features"
-      title="Everything you need to build modern Nuxt apps"
-      description="Start with a solid foundation. This template includes all the essentials for building production-ready applications with Nuxt UI's powerful component system."
-      :features="[{
-        icon: 'i-lucide-rocket',
-        title: 'Production-ready from day one',
-        description: 'Pre-configured with TypeScript, ESLint, Tailwind CSS, and all the best practices. Focus on building features, not setting up tooling.'
-      }, {
-        icon: 'i-lucide-palette',
-        title: 'Beautiful by default',
-        description: 'Leveraging Nuxt UI\'s design system with automatic dark mode, consistent spacing, and polished components that look great out of the box.'
-      }, {
-        icon: 'i-lucide-zap',
-        title: 'Lightning fast',
-        description: 'Optimized for performance with SSR/SSG support, automatic code splitting, and edge-ready deployment. Your users will love the speed.'
-      }, {
-        icon: 'i-lucide-blocks',
-        title: '100+ components included',
-        description: 'Access Nuxt UI\'s comprehensive component library. From forms to navigation, everything is accessible, responsive, and customizable.'
-      }, {
-        icon: 'i-lucide-code-2',
-        title: 'Developer experience first',
-        description: 'Auto-imports, hot module replacement, and TypeScript support. Write less boilerplate and ship more features.'
-      }, {
-        icon: 'i-lucide-shield-check',
-        title: 'Built for scale',
-        description: 'Enterprise-ready architecture with proper error handling, SEO optimization, and security best practices built-in.'
-      }]"
-    />
+    <!-- LEFT : HERO -->
+    <section
+      class="lg:w-1/2 flex items-center justify-center px-6 lg:px-16"
+    >
+      <div
+        class="max-w-xl text-center transition-all duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+        :class="
+          animate
+            ? 'translate-x-0 opacity-100'
+            : 'lg:translate-x-1/2 opacity-0'
+        "
+      >
+        <!-- TITLE -->
+        <h1
+          class="text-4xl md:text-5xl font-bold text-blue-900 dark:text-white"
+        >
+          Kementerian PU
+        </h1>
 
-    <UPageSection>
-      <UPageCTA
-        title="Ready to build your next Nuxt app?"
-        description="Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today."
-        variant="subtle"
-        :links="[{
-          label: 'Start building',
-          to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-          target: '_blank',
-          trailingIcon: 'i-lucide-arrow-right',
-          color: 'neutral'
-        }, {
-          label: 'View on GitHub',
-          to: 'https://github.com/nuxt-ui-templates/starter',
-          target: '_blank',
-          icon: 'i-simple-icons-github',
-          color: 'neutral',
-          variant: 'outline'
-        }]"
-      />
-    </UPageSection>
+        <!-- GOLD LINE -->
+        <div
+          class="w-28 h-1 bg-yellow-400 rounded-full my-6 mx-auto"
+        ></div>
+
+        <!-- DESC -->
+        <p
+          class="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
+        >
+          Sistem Manajemen Pengguna Kementerian
+          Pekerjaan Umum untuk mendukung
+          pengelolaan akses, data, dan layanan
+          digital secara aman, terintegrasi,
+          dan modern.
+        </p>
+      </div>
+    </section>
+
+    <!-- RIGHT : LOGIN BOX -->
+    <section
+      class="lg:w-1/2 flex items-center justify-center px-6 lg:px-16 py-12 lg:py-0 bg-gray-50 dark:bg-gray-800"
+    >
+
+      <div
+        class="w-full max-w-md bg-white dark:bg-gray-700 shadow-xl rounded-2xl p-8 md:p-10
+               transition-all duration-[1200ms]
+               ease-[cubic-bezier(0.22,1,0.36,1)]"
+        :class="
+          animate
+            ? 'translate-x-0 opacity-100'
+            : 'translate-x-full opacity-0'
+        "
+      >
+
+        <!-- LOGO -->
+        <img
+          src="/logo.png"
+          class="h-12 mx-auto mb-6"
+        />
+
+        <!-- TITLE -->
+        <h2
+          class="text-2xl font-semibold text-center text-gray-800 dark:text-white"
+        >
+          Login Akun
+        </h2>
+
+        <p
+          class="text-center text-sm text-gray-500 mb-8"
+        >
+          Masuk untuk melanjutkan ke sistem
+        </p>
+
+        <!-- FORM -->
+        <form class="space-y-5">
+
+          <UFormField label="Email">
+            <UInput
+              size="lg"
+              type="email"
+              placeholder="email@pu.go.id"
+              class="w-full"
+            />
+          </UFormField>
+
+          <UFormField label="Password">
+            <UInput
+              size="lg"
+              type="password"
+              placeholder="••••••••"
+              class="w-full"
+            />
+          </UFormField>
+          <UButton
+            block
+            size="lg"
+            class="bg-blue-900 hover:bg-blue-700 text-white"
+          >
+            Login
+          </UButton>
+
+        </form>
+
+      </div>
+    </section>
+
   </div>
 </template>
+<script setup>
+const animate = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    animate.value = true
+  }, 900) // lebih lama intro
+})
+</script>
+
