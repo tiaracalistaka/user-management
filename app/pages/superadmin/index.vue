@@ -9,20 +9,10 @@
     </UCard>
   </div>
 </template>
-
 <script setup>
-definePageMeta({ layout: 'dashboard' })
-
-const users = [
-  { name: 'Admin', role: 'SUPERADMIN' },
-  { name: 'Manager A', role: 'MANAGER' },
-  { name: 'Pegawai A', role: 'PEGAWAI' }
-]
-
-const columns = [
-  { key: 'name', label: 'Nama' },
-  { key: 'role', label: 'Role' }
-]
+definePageMeta({ 
+    middleware: 'role',
+    layout: 'dashboard' })
 </script>
 
 <style scoped>

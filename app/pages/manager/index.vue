@@ -11,15 +11,7 @@
 </template>
 
 <script setup>
-definePageMeta({ layout: 'dashboard' })
-
-const pegawai = [
-  { name: 'Pegawai A', divisi: 'IT' },
-  { name: 'Pegawai B', divisi: 'Keuangan' }
-]
-
-const columns = [
-  { key: 'name', label: 'Nama' },
-  { key: 'divisi', label: 'Divisi' }
-]
+definePageMeta({ 
+    middleware: 'role',
+    layout: 'dashboard' })
 </script>

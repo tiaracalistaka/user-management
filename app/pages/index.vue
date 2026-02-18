@@ -116,5 +116,37 @@ onMounted(() => {
     animate.value = true
   }, 900) // lebih lama intro
 })
+
+const email = ref('')
+const password = ref('')
+const loading = ref(false)
+
+const submit = async () => {
+
+  loading.value = true
+
+  await signIn.email({
+    email: email.value,
+    password: password.value
+  })
+
+  const { data: session } = await useAuthSession()
+
+  const role = session.value?.user?.role
+
+  if (role === 'SUPERADMIN') {
+    navigateTo('/superadmin')
+  }
+
+  else if (role === 'MANAGER') {
+    navigateTo('/manager')
+  }
+
+  else {
+    navigateTo('/pegawai')
+  }
+
+  loading.value = false
+}
 </script>
 
