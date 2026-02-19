@@ -1,25 +1,30 @@
 export default defineNuxtRouteMiddleware(async (to) => {
+  const session = useState<any>('session')
 
-  const { data: session } = await useFetch<{
-    user?: {
-      role?: string
-    }
-  }>('/api/auth/session')
+  if (!session.value) {
+    const { data } = await useFetch('/api/auth/session')
+    session.value = data.value
+  }
 
   const role = session.value?.user?.role
 
   if (!role) {
-    return navigateTo('/login')
+    return navigateTo('/')
   }
 
   if (to.path.startsWith('/superadmin') &&
       role !== 'SUPERADMIN') {
-    return navigateTo('/unauthorized')
+    return navigateTo('/')
   }
 
   if (to.path.startsWith('/manager') &&
       role !== 'MANAGER') {
-    return navigateTo('/unauthorized')
+    return navigateTo('/')
+  }
+
+  if (to.path.startsWith('/pegawai') &&
+      role !== 'PEGAWAI') {
+    return navigateTo('/')
   }
 
 })
