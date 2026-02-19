@@ -1,51 +1,32 @@
-// import "dotenv/config"
-// import { PrismaClient } from "@prisma/client"
-// import bcrypt from "bcrypt"
-// import { PrismaPg } from "@prisma/adapter-pg";
-// const connectionString = `${process.env.DATABASE_URL}`;
-// const adapter = new PrismaPg({ connectionString });
-// const prisma = new PrismaClient({ adapter });
+import "dotenv/config"
+import { auth } from "../server/auth/auth" 
+import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+const connectionString = `${process.env.DATABASE_URL}`;
+const adapter = new PrismaPg({ connectionString })
+const prisma = new PrismaClient({ adapter })
 
-// async function main() {
+async function main() {
+  const users = [
+    { email: "admin@mail.com", name: "Admin" },
+    { email: "manager@mail.com", name: "Manager" },
+    { email: "pegawai@mail.com", name: "Pegawai" },
+    { email: "tiara@mail.com", name: "Tiara" },
+    { email: "calista@mail.com", name: "Calista" },
+    { email: "kusuma@mail.com", name: "Kusuma" },
+  ]
+  for (const user of users) {
+    await auth.api.signUpEmail({
+      body: {
+        email: user.email,
+        password: "12345678",
+        name: user.name,
+      },
+    })
+  }
+  console.log("Seed done")
+}
 
-//   const hash = await bcrypt.hash("123456", 10)
-  
-
-// await auth.api.signUpEmail({
-//   body: {
-//     email: "admin@mail.com",
-//     password: "12345678",
-//     name: "Admin"
-//   }
-// })
-//   await prisma.user.createMany({
-//     data: [
-//       {
-//         name: "Super Admin",
-//         email: "admin@mail.com",
-//         password: hash,
-//         role: "SUPERADMIN"
-//       },
-//       {
-//         name: "Manager",
-//         email: "manager@mail.com",
-//         password: hash,
-//         role: "MANAGER"
-//       },
-//       {
-//         name: "Pegawai",
-//         email: "pegawai@mail.com",
-//         password: hash,
-//         role: "PEGAWAI"
-//       },
-//       {
-//         name: "Tiara",
-//         email: "tiara@mail.com",
-//         password: "tiara",
-//         role: "SUPERADMIN"
-//       }
-//     ]
-//   })
-// }
-
-// main()
+main()
+  .catch(console.error)
+  .finally(() => prisma.$disconnect())

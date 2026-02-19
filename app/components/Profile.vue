@@ -21,7 +21,7 @@
             />
             <UButton
             icon="lucide:pencil"
-            color="gray"
+            color="neutral"
             variant="soft"
             @click="toggleEdit('name')"
             />
