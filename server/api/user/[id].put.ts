@@ -1,5 +1,5 @@
-import { auth } from "../auth/auth"
-import { prisma } from "../utils/prisma"
+import { auth } from "../../auth/auth"
+import { prisma } from "../../utils/prisma"
 
 export default defineEventHandler(async (event) => {
 

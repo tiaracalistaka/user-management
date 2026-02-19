@@ -34,15 +34,20 @@
         </li>
 
         <li v-if="role === 'SUPERADMIN'">
-          <UButton
+        <NuxtLink to="/manageuser">
+
+            <UButton
             label="Manage User"
             icon="lucide:settings"
             block
             variant="ghost"
-            :class="menuClass('manage')"
-            @click="selectMenu('manage')"
-          />
+            class="justify-start text-gray-700 hover:bg-gray-100"
+            />
+
+        </NuxtLink>
         </li>
+
+
 
       </ul>
     </div>

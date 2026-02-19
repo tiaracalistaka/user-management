@@ -49,14 +49,3 @@
 // }
 
 // main()
-
-import { auth } from "../server/utils/auth"
-
-await auth.api.signUpEmail({
-  body: {
-    name: "Rifky",
-    email: "rifky@mail.com",
-    password: "12345678",
-    role: "SUPERADMIN"
-  }
-})

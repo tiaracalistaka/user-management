@@ -179,19 +179,6 @@ const submit = async () => {
       throw new Error(error.message)
     }
 
-   type RoleData = {
-    role: "SUPERADMIN" | "MANAGER" | "PEGAWAI"
-    name: string
-    email: string
-  }
-
-  const roleData =
-    await $fetch<RoleData>('/api/getRole')
-
-  sessionStorage.setItem(
-    "user-role",
-    roleData.role
-  )
     navigateTo('/dashboard')
 
   } catch (err) {

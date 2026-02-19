@@ -29,8 +29,6 @@
         </div>
         </div>
 
-
-      <!-- EMAIL -->
       <div class="field">
         <label>Email</label>
 
@@ -46,7 +44,6 @@
         </div>
       </div>
 
-      <!-- PASSWORD -->
       <div class="field">
         <label>Password</label>
 
@@ -65,7 +62,6 @@
 
     </div>
 
-    <!-- SAVE -->
     <UButton
       label="Simpan Perubahan"
       color="primary"
@@ -85,10 +81,22 @@ const props = defineProps<{
 }>()
 
 const form = reactive({
-  name: props.profile.name,
-  email: props.profile.email,
+  name: "",
+  email: "",
   password: "",
 })
+
+watch(
+  () => props.profile,
+  (profile) => {
+    if (!profile) return
+
+    form.name = profile.name ?? ""
+    form.email = profile.email ?? ""
+  },
+  { immediate: true }
+)
+
 
 const edit = reactive({
   name: false,
@@ -109,7 +117,6 @@ const togglePassword = () => {
   showPassword.value = !showPassword.value
 }
 
-/* 🎨 Custom style mapping */
 const inputUI = (active: boolean) => ({
   base: [
     "transition",
@@ -134,16 +141,12 @@ const updateProfile = async () => {
 }
 </script>
 <style scoped>
-
-/* FIELD */
 .field label {
   font-size: 12px;
   color: #6b7280;
   display: block;
   margin-bottom: 4px;
 }
-
-/* WRAPPER */
 .input-wrapper {
   display: flex;
   align-items: center;

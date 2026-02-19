@@ -5,7 +5,6 @@
            flex flex-col"
   >
 
-    <!-- HEADER + SEARCH -->
     <div
       class="mb-4 flex justify-between items-center"
     >
@@ -21,7 +20,6 @@
       />
     </div>
 
-    <!-- TABLE -->
     <div class="overflow-auto flex-1">
 
       <table
@@ -29,7 +27,6 @@
                rounded-lg overflow-hidden"
       >
 
-        <!-- HEADER -->
         <thead
           class="bg-yellow-500 text-blue-900 text-sm
                  sticky top-0 z-10"
@@ -55,7 +52,6 @@
           </tr>
         </thead>
 
-        <!-- BODY -->
         <tbody class="text-sm">
 
           <tr
@@ -100,12 +96,12 @@
             >
 
               <!-- EDIT -->
-              <button
+              <!-- <button
                 @click="edit(u)"
                 class="icon-btn"
               >
                 <Icon name="lucide:pencil" />
-              </button>
+              </button> -->
 
               <!-- DELETE -->
               <button
@@ -139,6 +135,14 @@
 </template>
 
 <script setup lang="ts">
+
+definePageMeta({
+  middleware: [
+    'auth',
+    'superadmin'
+  ]
+})
+
 type User = {
   id: string
   name: string
@@ -158,7 +162,6 @@ const fetchUsers = async () => {
 
 onMounted(fetchUsers)
 
-/* FILTER */
 const filteredUsers = computed(() => {
 
   if (!users.value) return []
@@ -176,12 +179,11 @@ const filteredUsers = computed(() => {
 })
 
 /* EDIT */
-const edit = (u: User) => {
-  selectedUser.value = u
-  showEdit.value = true
-}
+// const edit = (u: User) => {
+//   selectedUser.value = u
+//   showEdit.value = true
+// }
 
-/* DELETE */
 const remove = async (id: string) => {
 
   const ok = confirm(
@@ -211,8 +213,6 @@ const roleBadge = (role: string) => {
 </script>
 
 <style scoped>
-
-/* ICON BUTTON */
 .icon-btn {
   background: #f3f4f6;
   padding: 8px;
@@ -224,7 +224,6 @@ const roleBadge = (role: string) => {
   background: #e5e7eb;
 }
 
-/* DELETE COLOR */
 .icon-btn.delete:hover {
   background: #fee2e2;
   color: #dc2626;
