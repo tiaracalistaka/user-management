@@ -1,0 +1,3 @@
+DATABASE_URL="postgresql://postgres:password@localhost:5432/userdb"
+BETTER_AUTH_URL=http://localhost:3000 
+BETTER_AUTH_SECRET="super-secret-key00000000000000000000000000000000"
