@@ -132,16 +132,16 @@ const loading = ref(false)
 const touched = ref(false)
 const animate = ref(false)
 
-const errors = reactive({
-  email: '',
-  password: '',
-  global: '',
-})
-
 onMounted(() => {
   setTimeout(() => {
     animate.value = true
   }, 1000)
+})
+
+const errors = reactive({
+  email: '',
+  password: '',
+  global: '',
 })
 
 const validate = () => {

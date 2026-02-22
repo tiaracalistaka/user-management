@@ -12,12 +12,12 @@ This repository contains a User Management application built with Nuxt (TypeScri
 - `public/` — Static assets.
 - `.nuxt/` — Generated Nuxt build artifacts (do not commit changes here).
 - `docker-compose.yaml`, `Dockerfile` — Container configuration for local or production deployments.
-- `package.json`, `npm-lock.yaml` — Node project configuration and lockfile.
+- `package.json`, `package-lock.json` — Node project configuration and lockfile.
 
 ## Requirements
 
 - Node.js 18+ (recommended)
-- npm (preferred) or npm/yarn
+- npm (preferred)
 - PostgreSQL (or another DB supported by Prisma) running and accessible via `DATABASE_URL`
 - Docker (optional)
 
@@ -42,7 +42,7 @@ npm install
 2. Generate Prisma client:
 
 ```bash
-npm prisma generate
+npx prisma generate
 ```
 
 3. Apply migrations (development):
@@ -68,7 +68,7 @@ npx prisma db seed
 Development:
 
 ```bash
-npm dev
+npm run dev
 ```
 
 This starts Nuxt in development mode (hot-reload). The frontend and server routes are served by Nitro.
@@ -76,8 +76,8 @@ This starts Nuxt in development mode (hot-reload). The frontend and server route
 Production (build and run):
 
 ```bash
-npm build
-npm start
+npm run build
+npm run preview
 ```
 
 ## Docker (optional)
@@ -94,24 +94,36 @@ docker compose up --build
 - Migrations: `prisma/migrations/`
 - Seed script: `prisma/seed.ts`
 
-Use `npm prisma studio` to inspect data locally:
+Use `npx prisma studio` to inspect data locally:
 
 ```bash
-npm prisma studio
+npx prisma studio
 ```
+
+## API Endpoints
+
+User management endpoints use `/api/users` with separated CRUD files:
+
+- `GET /api/users` — list users with role-based visibility
+	- `SUPERADMIN` sees: `SUPERADMIN`, `MANAGER`, `PEGAWAI`
+	- `MANAGER` sees: `MANAGER`, `PEGAWAI`
+	- `PEGAWAI` sees: `PEGAWAI`
+- `POST /api/users` — create user (superadmin only)
+- `PUT /api/users/:id` — update user (superadmin only)
+- `DELETE /api/users/:id` — delete user (superadmin only)
 
 ## Useful commands
 
-- `npm dev` — Start development server
-- `npm build` — Build for production
-- `npm start` — Start built app
-- `npm prisma generate` — Generate Prisma client
-- `npm prisma migrate dev` — Create/apply migrations locally
-- `npm prisma db seed` — Run seed script
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview built app
+- `npx prisma generate` — Generate Prisma client
+- `npx prisma migrate dev` — Create/apply migrations locally
+- `npx prisma db seed` — Run seed script
 
 ## Troubleshooting
 
 - If migrations fail, verify `DATABASE_URL` and the DB is reachable.
-- After changing the Prisma schema, run `npm prisma generate`.
+- After changing the Prisma schema, run `npx prisma generate`.
 - Check server logs for Nitro endpoints under `server/` when API calls fail.
 

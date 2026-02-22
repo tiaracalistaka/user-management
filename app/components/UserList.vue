@@ -23,6 +23,13 @@
     
     </div>
 
+    <p
+      v-if="errorMessage"
+      class="mb-3 text-sm text-red-600"
+    >
+      {{ errorMessage }}
+    </p>
+
     <!-- TABLE -->
     <div class="overflow-auto flex-1">
 
@@ -123,10 +130,18 @@ type User = {
 
 const users = ref<User[]>([])
 const search = ref("")
+const errorMessage = ref("")
 
 onMounted(async () => {
-  users.value =
-    await $fetch<User[]>('/api/user')
+  try {
+    const response = await $fetch<{ data: User[] }>('/api/users')
+    users.value = response?.data || []
+  } catch (error: any) {
+    errorMessage.value =
+      error?.data?.statusMessage ||
+      error?.message ||
+      'Gagal memuat data user'
+  }
 })
 
 

@@ -26,16 +26,25 @@
 </template>
 
 <script setup lang="ts">
-import { authClient } from "~/lib/auth-client" // ⬅️ WAJIB
+import { authClient } from "~/lib/auth-client"
 
 const route = useRoute()
+const { clearAuthUser } = useAuthUser()
 
 const logout = async () => {
-  await authClient.signOut()
+  try {
+    const { error } = await authClient.signOut()
 
-  sessionStorage.clear()
+    if (error) {
+      throw new Error(error.message)
+    }
+  } catch {
+  } finally {
+    clearAuthUser()
+    sessionStorage.clear()
 
-  navigateTo('/')
+    await navigateTo('/')
+  }
 }
 </script>
 

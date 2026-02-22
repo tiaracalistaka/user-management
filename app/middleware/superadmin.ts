@@ -1,12 +1,16 @@
+import { useAuthUser } from "~/composables/useAuthUser"
+
 export default defineNuxtRouteMiddleware(
   async () => {
+    const {
+      getAuthUser,
+      clearAuthUser,
+    } = useAuthUser()
 
-    const user =
-      await $fetch('/api/getRole')
-        .catch(() => null)
+    const user = await getAuthUser()
 
-    /* NOT LOGIN */
     if (!user) {
+      clearAuthUser()
       return navigateTo('/')
     }
 

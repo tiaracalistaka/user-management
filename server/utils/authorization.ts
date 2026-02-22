@@ -1,7 +1,7 @@
 import { auth } from "../auth/auth"
-import { prisma } from "../utils/prisma"
+import { prisma } from "./prisma"
 
-export default defineEventHandler(async (event) => {
+export const requireSuperadmin = async (event: any) => {
   const session = await auth.api.getSession({
     headers: event.headers,
   })
@@ -13,36 +13,27 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session.user.id,
-    },
+  const currentUser = await prisma.user.findUnique({
+    where: { id: session.user.id },
     select: {
+      id: true,
       role: true,
-      name: true,
-      email: true,
     },
   })
 
-  if (!user) {
+  if (!currentUser) {
     throw createError({
       statusCode: 401,
       statusMessage: "Unauthorized",
     })
   }
 
-  const allowedRoles = [
-    "SUPERADMIN",
-    "MANAGER",
-    "PEGAWAI",
-  ]
-
-  if (!allowedRoles.includes(user.role)) {
+  if (currentUser.role !== "SUPERADMIN") {
     throw createError({
       statusCode: 403,
       statusMessage: "Forbidden",
     })
   }
 
-  return user
-})
+  return currentUser
+}

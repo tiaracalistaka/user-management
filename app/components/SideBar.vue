@@ -9,6 +9,10 @@
         Dashboard
       </h2>
 
+      <p class="text-sm text-gray-500 -mt-6 mb-6">
+        Login sebagai: <span class="font-semibold text-gray-700">{{ props.role }}</span>
+      </p>
+
       <ul class="space-y-3">
 
         <li>

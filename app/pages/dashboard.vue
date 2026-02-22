@@ -36,14 +36,20 @@ import UserList from "~/components/UserList.vue"
 const profile = ref({
   name: "",
   email: "",
-  role: "",
+  role: "PEGAWAI",
 })
+
+const { getAuthUser } = useAuthUser()
 
 const activeMenu = ref("profil")
 
 onMounted(async () => {
-  profile.value =
-    await $fetch('/api/getRole')
-  console.log(profile.value)
+  const user = await getAuthUser()
+
+  if (!user) {
+    return navigateTo('/')
+  }
+
+  profile.value = user
 })
 </script>
